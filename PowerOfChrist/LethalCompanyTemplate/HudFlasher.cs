@@ -46,11 +46,11 @@ namespace PowerOfChrist
                 return;
             }
 
-            if (!player.IsClient) // This might be breaking the mod for host
+            /*if (!player.IsClient) // This might be breaking the mod for host
             {
                 Plugin.Logger.LogInfo("Other client, skipping hud flash");
                 return;
-            }
+            }*/
 
             this.SetImageToRandTexture(ref image, textures);
 

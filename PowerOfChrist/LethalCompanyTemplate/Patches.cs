@@ -68,9 +68,10 @@ namespace PowerOfChrist
         static GameObject GetOrAddHUDObject()
         {
             GameObject canvas = GameObject.Find("Canvas");
-            GameObject rawImageObj = canvas.transform.find("ImageFlasher");
+            //GameObject rawImageObj = canvas.transform.Find("ImageFlasher").gameObject;
+            GameObject rawImageObj = null;
 
-            if (rawImageObj != null)
+            if (rawImageObj == null)
             {
                 rawImageObj = new GameObject("ImageFlasher", typeof(UnityEngine.UI.RawImage), typeof(HudFlasher));
                 rawImageObj.transform.SetParent(canvas.transform);
@@ -90,7 +91,7 @@ namespace PowerOfChrist
             byte[] bytes = File.ReadAllBytes(path);
             if (!ImageConversion.LoadImage(texture, bytes))
             {
-                Plugin.Logger.LogWarning(path + " failed to be loaded")
+                Plugin.Logger.LogWarning(path + " failed to be loaded");
                 return null;
             }
 
@@ -106,7 +107,8 @@ namespace PowerOfChrist
         /// <returns>List of Texture2D's, images that failed to load will be null.</returns>
         static Texture2D[] CreateTexturesFromFolder(string path)
         {
-            string[] imagePaths = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg"));
+            //string[] imagePaths = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories).Where(s => s.EndsWith(".png") || s.EndsWith(".jpg"));
+            string[] imagePaths = Directory.GetFiles(path, "*.png");
             Texture2D[] textures = new Texture2D[imagePaths.Length];
 
             for (int i = 0; i < imagePaths.Length; i++)
@@ -133,7 +135,7 @@ namespace PowerOfChrist
         /// <summary>
         /// Attempts to begin Hud Flashing sequence
         /// </summary>
-        static bool BeginFlasher ()
+        static void BeginFlasher ()
         {
             Plugin.hudFlasher.BeginFlash();
         }
