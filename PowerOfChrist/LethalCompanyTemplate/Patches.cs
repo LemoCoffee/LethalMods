@@ -27,9 +27,6 @@ namespace PowerOfChrist
                     Plugin.hudFlasher.textures = CreateTexturesFromFolder(Path.Combine(Path.GetDirectoryName(Plugin.ExecutingAssembly.Location), "images"));
                     Plugin.Logger.LogInfo("Created flasher with " + Plugin.hudFlasher.textures.Length + " textures");
                 }
-
-                // Attempt a flash sequence to fully initialize the flasher object
-                BeginFlasher();
             }
             catch (Exception e) 
             {

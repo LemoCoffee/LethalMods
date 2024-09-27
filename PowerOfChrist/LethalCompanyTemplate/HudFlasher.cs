@@ -68,16 +68,17 @@ namespace PowerOfChrist
 
         public bool BeginFlash()
         {
-            if (audioSource == null)
-            {
-                audioSource = GetOrAddAudioSource();
-                Plugin.Logger.LogInfo("Audio Source Set");
-            }
-
+            
             if (player == null)
             {
                 player = GameNetworkManager.Instance.localPlayerController;
                 Plugin.Logger.LogInfo("Player set");
+            }
+
+            if (audioSource == null)
+            {
+                audioSource = GetOrAddAudioSource();
+                Plugin.Logger.LogInfo("Audio Source Set");
             }
 
             if (!isFlashing)
@@ -92,9 +93,14 @@ namespace PowerOfChrist
         public void StopFlash()
         {
             this.isFlashing = false;
-            image.color = new Color(1, 1, 1, 0);
+            image.color = new Color(1, 1, 1, 0); // Make flasher transparent
             image.GetComponent<RectTransform>().sizeDelta = new Vector2(1, 1); // Bandaid fix to stop pause menu bug
-            audioSource.Stop();
+
+            if (this.audioSource != null)
+            {
+                audioSource.Stop(); // Stop the sound to account for longer audioclips
+            }
+            
         }
 
         void RepeatFlash()
@@ -123,7 +129,7 @@ namespace PowerOfChrist
 
         AudioSource GetOrAddAudioSource()
         {
-            Transform audiosObj = GameNetworkManager.Instance.localPlayerController.transform.Find("Audios");
+            Transform audiosObj = player.transform.Find("Audios");
             Transform pocAudio = audiosObj.Find("PowerOfChristAudio");
 
             if (pocAudio == null)
