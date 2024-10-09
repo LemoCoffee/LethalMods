@@ -3,6 +3,13 @@
 Howdy hi hello! This is a small joke mod made upon request from a friend.
 Upon reaching low health, flashes of Jesus will fill the players screen as their time approaches, church bell ringing.
 
+## Demos
+
+Default Mod \
+https://youtu.be/LpLVtxpxqXg \
+Customization Demo \
+https://youtu.be/ynli4SweoIs \
+
 ## Installation
 
 Download with a mod manager, or throw the contents of the mod into your plugins folder
@@ -18,10 +25,21 @@ For the images, just throw any `.png` file into `\LemoCoffee-PowerOfChrist\image
 
 ## Configuration
 ```
-Volume - Changes the volume of the sound clip that plays accompanying each flash.
+[Audio]
+Volume - Changes the volume of the sound clip that plays accompanying each flash [0, 1].
 File Name - Name of the audio clip file, including extension. Supports ogg, mp3, and wav.
+
+[General]
+Flash Once - Determines whether flashes will repeat or will only trigger once after taking damage.
+Allow Overlap - If set to true, the flasher will be able to interrupt itself if the player triggers the flasher.
+Trigger Point - The amount of health the player must reach before the flashes will trigger.
+Flash Delay - How long in seconds between each flash.
 ```
 
 ## Credits
 
 Thank you so so much to Sluka for their (involuntary) bug testing!
+
+## Links
+Github \
+https://github.com/LemoCoffee/LethalMods
