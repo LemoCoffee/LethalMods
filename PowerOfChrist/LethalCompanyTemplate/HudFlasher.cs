@@ -81,7 +81,7 @@ namespace PowerOfChrist
                 Plugin.Logger.LogInfo("Audio Source Set");
             }
 
-            if (!isFlashing)
+            if (!isFlashing || Plugin.allowOverlap)
             {
                 RepeatFlash();
                 return true;
@@ -112,14 +112,18 @@ namespace PowerOfChrist
                 return;
             }
 
-            if (player.health <= 20 && player.health > 0 && !player.isPlayerDead)
+            if (player.health <= Plugin.triggerValue && player.health > 0 && !player.isPlayerDead)
             {
+                // Flash and play sound
                 audioSource.PlayOneShot(Plugin.dangerSound);
                 Flash();
 
-                Invoke(nameof(RepeatFlash), 5);
-
-                this.isFlashing = true;
+                // Schedule next flash
+                if (!Plugin.flashOnce)
+                {
+                    Invoke(nameof(RepeatFlash), Plugin.flashDelay);
+                    this.isFlashing = true;
+                }
             }
             else
             {
@@ -143,6 +147,7 @@ namespace PowerOfChrist
                 audioSource.clip = Plugin.dangerSound;
                 audioSource.loop = false;
                 audioSource.playOnAwake = false;
+                audioSource.spatialize = false;
                 audioSource.Stop();
 
                 // Attach to audiosObj
